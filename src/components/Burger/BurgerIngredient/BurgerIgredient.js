@@ -32,9 +32,10 @@ class BurgerIngredient extends Component {
     }
 }
 
-// validação do tipo prop
+// prop type validation
 burgerIgredient.propTypes = {
-    type: PropTypes.string.isRequired //Ao usar o componente de ingredientes sem passar uma string, um erro será gerado.
+    type: PropTypes.string.isRequired //Using the ingredients component without passing a string will produce an error.
+
 }
 
 export default BurgerIngredient
