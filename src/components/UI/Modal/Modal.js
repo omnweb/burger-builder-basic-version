@@ -7,7 +7,7 @@ class Modal extends Component {
     // O modal recarregava cada vez que o controle do construtor era acionado
     shouldComponentUpdate(nextProps, nextState) {
         //Só vai atualizar quando for efetivar as mudanças 
-        return nextProps.show !== this.props.show;
+        return nextProps.show !== this.props.show || nextProps.children !== this.props.children;
     }
     // componentDidUpdate() {
     //     console.log('[Modal] componentDidUpdate')
