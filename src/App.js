@@ -10,7 +10,7 @@ class App extends Component {
   componentDidMount() {
     setTimeout(() => {
       this.setState({ show: false })
-    }, 5000)
+    }, 15000)
   }
   render() {
     return (
