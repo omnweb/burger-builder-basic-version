@@ -3,7 +3,9 @@
 import React from 'react'
 import BurgerIngredient from './BurgerIngredient/BurgerIgredient'
 import classes from './Burger.css'
+
 const burger = (props) => {
+    console.log(props)
     // Mwétodo chave que extrai as chaves de um determinado objeto e transforma isso em uma matriz.
     let transformedIngredients = Object.keys(props.ingredients)
         .map(igKey => {
