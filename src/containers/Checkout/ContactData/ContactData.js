@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Button from '../../../components/UI/Button/Button'
 import classes from './ContactData.css'
 import axios from '../../../axio-orders'
+import Spinner from '../../../components/UI/Spinner/Spinner'
 
 
 class ContactData extends Component {
@@ -37,6 +38,7 @@ class ContactData extends Component {
         axios.post('/orders.json', order)
             .then(response => {
                 this.setState({ loading: false })
+                this.props.history.push('/')
             })
             .catch(error => {
                 this.setState({ loading: false })
@@ -44,17 +46,23 @@ class ContactData extends Component {
 
     }
     render() {
+        let form = (
+            <form>
+                <input className={classes.Input} type="text" name="name" placeholder="Your Name" />
+                <input className={classes.Input} type="email" name="email" placeholder="Your Email" />
+                <input className={classes.Input} type="text" name="street" placeholder="Your Street" />
+                <input className={classes.Input} type="text" name="postalCode" placeholder="Your Postal Code" />
+                <Button btnType="Success" clicked={this.orderHandler}>ORDER NOW</Button>
+                {/* <Button btnType="Danger" clicked>CANCEL</Button> */}
+            </form>
+        )
+        if (this.state.loading) {
+            form = <Spinner />
+        }
         return (
             <div className={classes.ContactData}>
                 <h4>Enter your contact data</h4>
-                <form>
-                    <input className={classes.Input} type="text" name="name" placeholder="Your Name" />
-                    <input className={classes.Input} type="email" name="email" placeholder="Your Email" />
-                    <input className={classes.Input} type="text" name="street" placeholder="Your Street" />
-                    <input className={classes.Input} type="text" name="postalCode" placeholder="Your Postal Code" />
-                    <Button btnType="Success" clicked={this.orderHandler}>ORDER NOW</Button>
-                    {/* <Button btnType="Danger" clicked>CANCEL</Button> */}
-                </form>
+                {form}
             </div>
         )
     }
