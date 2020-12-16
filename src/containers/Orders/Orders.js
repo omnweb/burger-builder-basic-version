@@ -1,8 +1,31 @@
 import React, { Component } from 'react'
 import Order from '../../components/Order/Order'
+import axios from '../../axio-orders'
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
 
-
-export default class Orders extends Component {
+class Orders extends Component {
+    state = {
+        orders: [],
+        loading: true
+    }
+    // Usando componentDidMount porque eu só quero buscar pedidos quando é carregado
+    componentDidMount() {
+        axios.get('/orders.json')
+            // recuperamos um objeto onde temos as IDs como propriedades
+            .then(res => {
+                const fetchedOrders = []
+                for (let key in res.data) {
+                    fetchedOrders.push({
+                        ...res.data[key],
+                        id: key
+                    })
+                }
+                this.setState({ loading: false, orders: fetchedOrders })
+            })
+            .catch(err => {
+                this.setState({ loading: false })
+            })
+    }
     render() {
         return (
             <div>
@@ -11,4 +34,5 @@ export default class Orders extends Component {
             </div>
         )
     }
-}   
+}
+export default withErrorHandler(Orders, axios)
