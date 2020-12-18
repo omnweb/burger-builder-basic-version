@@ -26,7 +26,7 @@ class ContactData extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'Your Street'
+                    placeholder: 'Street'
                 },
                 value: '',
                 validation: {
@@ -39,7 +39,7 @@ class ContactData extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'Your Zip Code'
+                    placeholder: 'ZIP Code'
                 },
                 value: '',
                 validation: {
@@ -54,7 +54,7 @@ class ContactData extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'Your Country'
+                    placeholder: 'Country'
                 },
                 value: '',
                 validation: {
@@ -67,7 +67,7 @@ class ContactData extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'email',
-                    placeholder: 'Your E-mail'
+                    placeholder: 'Your E-Mail'
                 },
                 value: '',
                 validation: {
@@ -84,10 +84,13 @@ class ContactData extends Component {
                         { value: 'cheapest', displayValue: 'Cheapest' }
                     ]
                 },
-                value: ''
+                validation: '',
+                value: '',
+                valid: true
 
             }
         },
+        formIsValid: false,
         loading: false
     }
     // Para prevenir o refresh usar o parâmentro event 
@@ -96,9 +99,9 @@ class ContactData extends Component {
         event.preventDefault()
         this.setState({ loading: true })
         const formData = {}
-        for (let formElementIentifier in this.state.orderForm) {
+        for (let formElementIdentifier in this.state.orderForm) {
             //contem os dados do form
-            formData[formElementIentifier] = this.state.orderForm[formElementIentifier].value //passando o valor do form
+            formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value //passando o valor do form
         }
         const order = {
             ingredients: this.props.ingredients,
@@ -135,12 +138,18 @@ class ContactData extends Component {
             ...this.state.orderForm
         }
         const updatedFormElement = { ...updatedOrderForm[inputIdentifier] }
+        updatedFormElement.value = event.target.value
         updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation)
         updatedFormElement.touched = true
-        updatedFormElement.value = event.target.value
         updatedOrderForm[inputIdentifier] = updatedFormElement
-        console.log(updatedFormElement)
-        this.setState({ orderForm: updatedOrderForm })
+
+        // verificando se todos os campos do form são válidos para serem enviados
+        let formIsValid = true
+        for (let inputIdentifier in updatedOrderForm) {
+            formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid
+        }
+        // console.log(formIsValid)
+        this.setState({ orderForm: updatedOrderForm, formIsValid: formIsValid })
     }
 
     render() {
@@ -165,7 +174,7 @@ class ContactData extends Component {
                         changed={(event) => this.inputChangedHandler(event, formElement.id)}
                     />
                 ))}
-                <Button btnType="Success" >ORDER NOW</Button>
+                <Button btnType="Success" disabled={!this.state.formIsValid}>ORDER NOW</Button>
                 {/* <Button btnType="Danger" clicked>CANCEL</Button> */}
             </form>
         )
