@@ -6,10 +6,10 @@ import Burger from '../../components/Burger/Burger'
 import BuildControls from '../../components/Burger/BuildControls/BuildControls'
 import { connect } from 'react-redux'
 import * as burgerBuilderActions from '../../store/actions/index'
+import axios from '../../axio-orders'
 
 import Modal from '../../components/UI/Modal/Modal'
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary'
-import axios from '../../axio-orders'
 import Spinner from '../.././components/UI/Spinner/Spinner'
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
 
@@ -21,21 +21,13 @@ class BurgerBuilder extends Component {
     // }
 
     state = {
-        purchasing: false,
-        loading: false,
-        error: false
+        purchasing: false
     }
 
-    componentDidMount() {
-        // console.log(this.props)
-        axios.get('https://react-my-burger-1e190-default-rtdb.firebaseio.com/ingredients.json')
-            .then(response => {
-                this.setState({ ingredients: response.data })
-            })
-            .catch(error => {
-                this.setState({ error: true })
-            })
-    }
+    // componentDidMount() {
+    //     // console.log(this.props)
+
+    // }
 
     updatePurchaseState(ingredients) {
         const sum = Object.keys(ingredients) //Cria um array de strings
