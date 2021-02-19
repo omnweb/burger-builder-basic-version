@@ -63,8 +63,8 @@ export const fetchOrdersStart = () => {
 };
 
 export const fetchOrders = () => {
+    // dispatch(fetchOrdersStart());
     return dispatch => {
-        dispatch(fetchOrdersStart());
         axios.get('/orders.json')
             // recuperamos um objeto onde temos as IDs como propriedades
             .then(res => {
