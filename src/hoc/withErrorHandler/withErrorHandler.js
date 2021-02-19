@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import Modal from '../../components/UI/Modal/Modal'
-import Aux from '../Auxiliary/Auxiliary'
+import React, { Component } from 'react';
+import Modal from '../../components/UI/Modal/Modal';
+import Aux from '../Auxiliary/Auxiliary';
 
 const withErrorHandler = (WrappedComponent, axios) => {
     return class extends Component {
@@ -12,16 +12,16 @@ const withErrorHandler = (WrappedComponent, axios) => {
                 if (this.state.error)
                     this.setState({ error: null });
                 return req;
-            })
+            });
             this.resInterceptor = axios.interceptors.response.use(res => res, error => {
                 this.setState({ error: error });
-            })
+            });
         }
 
         UNSAFE_componentWillUnmount() {
             // console.log('will unmount', this.reqInterceptor, this.resInterceptor)
-            axios.interceptors.request.eject(this.reqInterceptor)
-            axios.interceptors.response.eject(this.resInterceptor)
+            axios.interceptors.request.eject(this.reqInterceptor);
+            axios.interceptors.response.eject(this.resInterceptor);
         }
 
         errorConfirmedHandler = () => {
@@ -32,16 +32,15 @@ const withErrorHandler = (WrappedComponent, axios) => {
             return (
                 <Aux>
                     <Modal
-                        modalClosed={this.errorConfirmedHandler}
                         show={this.state.error}
-                    >
+                        modalClosed={this.errorConfirmedHandler}>
                         {this.state.error ? this.state.error.message : null}
                     </Modal>
                     <WrappedComponent {...this.props} />
                 </Aux>
-            )
+            );
         }
     }
 }
 
-export default withErrorHandler
+export default withErrorHandler;

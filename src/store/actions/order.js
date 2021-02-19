@@ -1,85 +1,84 @@
 // COntém criadores de ação para enviar o pedido
-
-import * as actionTypes from './actionTypes'
-import axios from '../../axio-orders'
+import * as actionTypes from './actionTypes';
+import axios from '../../axios-orders';
 
 export const purchaseBurgerSuccess = (id, orderData) => {
     return {
         type: actionTypes.PURCHASE_BURGER_SUCCESS,
         orderId: id,
         orderData: orderData
-    }
-}
+    };
+};
 
 export const purchaseBurgerFail = (error) => {
     return {
         type: actionTypes.PURCHASE_BURGER_FAIL,
         error: error
-    }
+    };
 }
 
 export const purchaseBurgerStart = () => {
     return {
         type: actionTypes.PURCHASE_BURGER_START
-    }
-}
+    };
+};
 
 //Assinc function unsing meddleware
 export const purchaseBurger = (orderData) => {
     return dispatch => {
-        dispatch(purchaseBurgerStart())
+        dispatch(purchaseBurgerStart());
         axios.post('/orders.json', orderData)
             .then(response => {
-                console.log(response.data)
-                dispatch(purchaseBurgerSuccess(response.data.name, orderData))
+                console.log(response.data);
+                dispatch(purchaseBurgerSuccess(response.data.name, orderData));
             })
             .catch(error => {
-                dispatch(purchaseBurgerFail(error))
-            })
-    }
-}
+                dispatch(purchaseBurgerFail(error));
+            });
+    };
+};
 
 export const purchaseInit = () => {
     return {
         type: actionTypes.PURCHASE_INIT
-    }
-}
+    };
+};
 
-export const fetchOrderSuccess = (orders) => {
+export const fetchOrdersSuccess = (orders) => {
     return {
-        type: actionTypes.FETCH_ORDER_SUCCESS,
+        type: actionTypes.FETCH_ORDERS_SUCCESS,
         orders: orders
-    }
-}
-export const fetchOrderFail = (error) => {
+    };
+};
+export const fetchOrdersFail = (error) => {
     return {
-        type: actionTypes.FETCH_ORDER_FAIL,
+        type: actionTypes.FETCH_ORDERS_FAIL,
         error: error
-    }
-}
-export const fetchOrderStart = () => {
+    };
+};
+export const fetchOrdersStart = () => {
     return {
-        type: actionTypes.FETCH_ORDER_START
-    }
-}
+        type: actionTypes.FETCH_ORDERS_START
+    };
+};
 
 export const fetchOrders = () => {
     return dispatch => {
-        // dispatch(fetchOrderStart())
+        dispatch(fetchOrdersStart());
         axios.get('/orders.json')
             // recuperamos um objeto onde temos as IDs como propriedades
             .then(res => {
-                const fetchedOrders = []
+                const fetchedOrders = [];
                 for (let key in res.data) {
                     fetchedOrders.push({
                         ...res.data[key],
                         id: key
-                    })
+                    });
                 }
-                dispatch(fetchOrderSuccess(fetchedOrders))
+                dispatch(fetchOrdersSuccess(fetchedOrders));
             })
             .catch(err => {
-                dispatch(fetchOrderFail(err))
-            })
-    }
-}
+                dispatch(fetchOrdersFail(err));
+            });
+    };
+};

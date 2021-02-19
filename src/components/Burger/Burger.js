@@ -1,8 +1,7 @@
 // This is the file that renders the hamburger
-
-import React from 'react'
-import BurgerIngredient from './BurgerIngredient/BurgerIgredient'
-import classes from './Burger.css'
+import React from 'react';
+import classes from './Burger.css';
+import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 
 const burger = (props) => {
     // Mwétodo chave que extrai as chaves de um determinado objeto e transforma isso em uma matriz.
@@ -11,15 +10,16 @@ const burger = (props) => {
             // Lida com ingredientes e quantidades dinâmicamente
             return [...Array(props.ingredients[igKey])].map((_, i) => {
                 // Retornando o BurgerIngredient
-                return <BurgerIngredient key={igKey + i} type={igKey} />
-            })
+                return <BurgerIngredient key={igKey + i} type={igKey} />;
+            });
             // Se não houver ingredientes, chega como um array com 4 arrays vazios
             // Reduzindo todos para um único array vazio, ou qdo houverem elementos mostra a qtdade total de arrays
-        }).reduce((arr, el) => {
+        })
+        .reduce((arr, el) => {
             return arr.concat(el)
-        }, [])
+        }, []);
     if (transformedIngredients.length === 0) {
-        transformedIngredients = <p>Please start adding ingredients!</p>
+        transformedIngredients = <p>Please start adding ingredients!</p>;
     }
     return (
         <div className={classes.Burger}>
@@ -27,8 +27,7 @@ const burger = (props) => {
             {transformedIngredients}
             <BurgerIngredient type="bread-bottom" />
         </div>
-    )
+    );
+};
 
-}
-
-export default burger
+export default burger;
