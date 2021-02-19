@@ -6,8 +6,8 @@ import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter } from 'react-router-dom'
 
 import { Provider } from 'react-redux';
-import burgerBuilderReducer from './store/reducers/burgerBuilder'
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
+import burgerBuilderReducer from './store/reducers/burgerBuilder'
 import orderReducer from './store/reducers/order'
 import thunk from 'redux-thunk';
 

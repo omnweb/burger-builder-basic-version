@@ -3,11 +3,11 @@
 import * as actionTypes from './actionTypes'
 import axios from '../../axio-orders'
 
-export const purchaseBurgerSuccess = (id, oderData) => {
+export const purchaseBurgerSuccess = (id, orderData) => {
     return {
         type: actionTypes.PURCHASE_BURGER_SUCCESS,
         orderId: id,
-        orderData: oderData
+        orderData: orderData
     }
 }
 
@@ -36,5 +36,11 @@ export const purchaseBurger = (orderData) => {
             .catch(error => {
                 dispatch(purchaseBurgerFail(error))
             })
+    }
+}
+
+export const purchaseInit = () => {
+    return {
+        type: actionTypes.PURCHASE_INIT
     }
 }
