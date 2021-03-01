@@ -12,7 +12,7 @@ class Auth extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'email',
-                    placeholder: 'E-Mail address'
+                    placeholder: 'Mail Address'
                 },
                 value: '',
                 validation: {
@@ -76,13 +76,13 @@ class Auth extends Component {
                 valid: this.checkValidity(event.target.value, this.state.controls[controlName].validation),
                 touched: true
             }
-        }
-        this.setState({ controls: updatedControls })
+        };
+        this.setState({ controls: updatedControls });
     }
 
     submitHandler = (event) => {
         event.preventDefault()
-        this.props.onAuth(this.state.controls.email.value, this.state.controls.password.value)
+        this.props.onAuth(this.state.controls.email.value, this.state.controls.password.value);
     }
 
 
@@ -122,8 +122,8 @@ class Auth extends Component {
 const mapDispatchToProps = dispatch => {
     return {
         onAuth: (email, password) => dispatch(actions.auth(email, password))
-    }
-}
+    };
+};
 
 export default connect(null, mapDispatchToProps)(Auth)
 
