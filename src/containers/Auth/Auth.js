@@ -120,17 +120,24 @@ class Auth extends Component {
             form = <Spinner />;
         }
 
-        // let errorMessage = null;
+        let errorMessage = null;
 
-        // if (this.props.error) {
-        //     errorMessage = (
-        //         <p>{this.props.error.message}</p>
-        //     )
-        // }
+        if (this.props.error) {
+            let message = null
+            if (this.props.error.message === "EMAIL_EXISTS") {
+                message = "The email address is already being used by another account"
+            }
+            else if (this.props.error.message === "EMAIL_NOT_FOUND" || this.props.error.message === "INVALID_PASSWORD") {
+                message = "The email or password entered does not confer.."
+            }
+            errorMessage = (
+                <p className={classes.message}>{message}</p>
+            )
+        }
 
         return (
             <div className={classes.Auth}>
-                {/* {errorMessage} */}
+                {errorMessage}
                 <form onSubmit={this.submitHandler}>
                     {form}
                     <Button btnType="Success" >SUBMIT</Button>

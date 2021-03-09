@@ -8,6 +8,14 @@
     box-sizing: border-box;
 }
 
+.message {
+    background-color: salmon;
+    color: #fff;
+    border: 1px solid red;
+    width: 90%;
+    margin-left: 5%;
+}
+
 @media (min-width:600px) {
     .Auth {
         width: 500px;
