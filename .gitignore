@@ -19,3 +19,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+src/store/actions/auth.js
+src/store/actions/auth__old.js
