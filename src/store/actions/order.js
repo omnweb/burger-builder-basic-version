@@ -62,10 +62,11 @@ export const fetchOrdersStart = () => {
     };
 };
 
-export const fetchOrders = (token) => {
-    // dispatch(fetchOrdersStart());
-    return (dispatch) => {
-        axios.get('/orders.json?auth=' + token)
+export const fetchOrders = (token, userId) => {
+    return dispatch => {
+        dispatch(fetchOrdersStart());
+        const queryParams = '?auth=' + token + '&orderBy="userId"&equalTo="' + userId + '"';
+        axios.get('/orders.json' + queryParams)
             // recuperamos um objeto onde temos as IDs como propriedades
             .then(res => {
                 const fetchedOrders = [];
