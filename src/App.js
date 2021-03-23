@@ -5,9 +5,6 @@ import asyncComponent from './hoc/asyncComponent/asyncComponent';
 
 import Layout from './hoc/Layout/Layout';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
-import './containers/Checkout/Checkout';
-import './containers/Orders/Orders';
-import Auth from './containers/Auth/Auth';
 import Logout from './containers/Auth/Logout/Logout'
 import * as actions from './store/actions/index'
 
@@ -28,7 +25,7 @@ class App extends Component {
   render() {
     let routes = (
       < Switch >
-        <Route path="/auth" component={Auth} />
+        <Route path="/auth" component={asyncAuth} />
         <Route path="/" exact component={BurgerBuilder} />
         <Redirect to="/" />
       </Switch >
